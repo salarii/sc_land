@@ -56,8 +56,8 @@ do
                         
                         if wep.RateOfFire then
                           
-                          wep.moveRateOfFire = wep.RateOfFire * moveFireRateLimit
-                          wep.RateOfFire = 10
+                          wep.moveRateOfFire =wep.RateOfFire * moveFireRateLimit
+                          
                         end
 
                         if wep.MaxRadius then 
