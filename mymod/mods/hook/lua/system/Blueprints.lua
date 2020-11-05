@@ -8,18 +8,19 @@ do
 		local landSpeedT2 = 1.55  --Land units speed
 		--local vision    =   --Line of sight, radar, and omni range
 		
-    local visionRadius = 0.6
+    local visionRadius = 0.7
     local scoutVisionRadius = 1.3
     local weaponRadius = 1.5	
     local shotVel = 1.3 
+		local moveFireRateLimit = 0.6
+    local moveObserveLimit = 0.8		
 		
 		for index,unit in all_bps.Unit do
 			if unit.Categories then
-    
-------------------------------------------------------------------------------------------------------------------------------------
+
 				if table.find(unit.Categories,'MOBILE') and 
 				   table.find(unit.Categories,'LAND') then
--------------------------------------[Amphibious navy]------------------------------------------------------------------------------
+
 					if table.find(unit.Categories,'TECH1') or table.find(unit.Categories,'TECH3') then
                if unit.Physics.MaxSpeed  then
                 unit.Physics.MaxSpeed = unit.Physics.MaxSpeed * landSpeed 
@@ -37,16 +38,28 @@ do
                end
 	        
 					end
-					
+          if unit.Intel.VisionRadius   then
+              
+                if table.find(unit.Categories,'SCOUT') then
+                     unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * scoutVisionRadius)
+                else
+
+                     unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * visionRadius)  
+                     unit.Intel.moveVisionRadius = math.ceil(unit.Intel.VisionRadius * moveObserveLimit)
+                end
+          end
           if table.find(unit.Categories,'TECH1') or
              table.find(unit.Categories,'TECH2') or
              table.find(unit.Categories,'TECH3') then
 					   if unit.Weapon then 
                  for index,wep in unit.Weapon do
+                        
                         if wep.RateOfFire then
+                          
+                          wep.moveRateOfFire = wep.RateOfFire * moveFireRateLimit
                           wep.RateOfFire = 10
                         end
-                --  if wep.Label != 'DeathWeapon' then
+
                         if wep.MaxRadius then 
                           wep.MaxRadius = wep.MaxRadius * weaponRadius 
                           if table.find(unit.Categories,'ARTILLERY') then
@@ -64,17 +77,10 @@ do
                           end
                           
                         end
-                 -- end
+
                  end
               end
-              if unit.Intel.VisionRadius   then
-              
-                if table.find(unit.Categories,'SCOUT') then
-                     unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * scoutVisionRadius)
-                else
-                     unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * visionRadius)  
-                end
-              end
+
               
             end
 					

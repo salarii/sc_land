@@ -102,7 +102,34 @@ Unit = Class(moho.unit_methods) {
     OnConsumptionInActive = function(self) end,
     OnProductionActive = function(self) end,
     OnProductionInActive = function(self) end,
-    OnMotionHorzEventChange = function( self, new, old ) end,
+    OnMotionHorzEventChange = function( self, new, old )
+        
+        
+        local bp = self:GetBlueprint()
+        if table.find(bp.Categories,'MOBILE') and 
+           table.find(bp.Categories,'LAND') then
+           LOG("motion", new, old,bp.Intel.moveVisionRadius,bp.Intel.VisionRadius)
+          
+          for i = 1, unit:GetWeaponCount() do
+                local wep = unit:GetWeapon(i)
+                local wepbp = wep:GetBlueprint()
+                if ( old == 'Stopped' ) and epbp.moveRateOfFire then
+                  wep:ChangeRateOfFire( wepbp.moveRateOfFire )
+                elseif ( new == 'Stopped' ) and wepbp.RateOfFire then
+                  wep:ChangeRateOfFire( wepbp.RateOfFire )
+                end
+           end
+           
+          
+           if ( old == 'Stopped' ) and bp.Intel.moveVisionRadius then
+                  self:SetIntelRadius( 'Vision',bp.Intel.moveVisionRadius )
+           elseif ( new == 'Stopped' ) and bp.Intel.VisionRadius then
+                  self:SetIntelRadius( 'Vision',bp.Intel.VisionRadius )
+           end
+           
+        end 
+      
+     end,
     
     # Core unit methods
     ForkThread = function(self, fn, ...)
