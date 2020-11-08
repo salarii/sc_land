@@ -9,10 +9,12 @@ do
 		--local vision    =   --Line of sight, radar, and omni range
 		
     local visionRadius = 0.7
-    local scoutVisionRadius = 1.3
+    local scoutVisionRadius = 1.1
     local weaponRadius = 1.5	
+    local omniRadius = 1.4
+    local omniArtyRadius = 1.6
     local shotVel = 1.3 
-		local moveFireRateLimit = 0.6
+		local moveFireRateLimit = 0.55
     local moveObserveLimit = 0.8		
 		
 		for index,unit in all_bps.Unit do
@@ -43,7 +45,15 @@ do
                 if table.find(unit.Categories,'SCOUT') then
                      unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * scoutVisionRadius)
                 else
-
+                --FreeIntel = true,
+                      unit.Intel.FreeIntel = true 
+                
+                     if table.find(unit.Categories,'ARTILLERY') then
+                      unit.Intel.OmniRadius = math.ceil(unit.Intel.VisionRadius * omniArtyRadius)
+                     else
+                      unit.Intel.OmniRadius = math.ceil(unit.Intel.VisionRadius * omniRadius)       
+                     end
+                     
                      unit.Intel.VisionRadius = math.ceil(unit.Intel.VisionRadius * visionRadius)  
                      unit.Intel.moveVisionRadius = math.ceil(unit.Intel.VisionRadius * moveObserveLimit)
                 end
@@ -51,6 +61,8 @@ do
           if table.find(unit.Categories,'TECH1') or
              table.find(unit.Categories,'TECH2') or
              table.find(unit.Categories,'TECH3') then
+             table.insert(unit.Categories,'OVERLAYOMNI')
+
 					   if unit.Weapon then 
                  for index,wep in unit.Weapon do
                         

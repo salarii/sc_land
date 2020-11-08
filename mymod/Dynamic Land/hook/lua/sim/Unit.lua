@@ -3229,11 +3229,15 @@ Unit = Class(moho.unit_methods) {
                 end
            end
            
-          
-           if ( old == 'Stopped' ) and bp.Intel.moveVisionRadius then
-                  self:SetIntelRadius( 'Vision',bp.Intel.moveVisionRadius )
-           elseif ( new == 'Stopped' ) and bp.Intel.VisionRadius then
-                  self:SetIntelRadius( 'Vision',bp.Intel.VisionRadius )
+                    
+                
+           if ( old == 'Stopped' )  then
+                  self:SetIntelRadius('Omni',  0)
+                  self:DisableIntel('Omni')
+           elseif ( new == 'Stopped' )  then
+                  self:SetIntelRadius('Omni', bp.Intel.OmniRadius)
+                  self:EnableIntel('Omni')
+           
            end
            
         end 

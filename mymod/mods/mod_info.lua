@@ -1,17 +1,17 @@
-name = "more versatile land"
+name = "Dynamic land"
 version = 1
-copyright = "Copyright © 2020, Salarii"
-description = "Land unit are more versatile and effective"
-author = "Atl"
-url = ""
+description = "Makes land operations way more dynamic, which makes land( sometimes an useless hord of T1,T2,T3 units) worth consideration. It is not necessarily easier to play them, but for sure provided skillful players, these units can deal huge damage."
+author = "Artur Swiderski"
+
 uid = "2BAC1CC8-1E9C-11EB-9607-4751FC2CA371"
 
+icon = "/mods/Dynamic Land/icon.png" 
+selectable = true
+enabled = true
 exclusive = false
 ui_only = false
---[[
-
-            local unit = self:GetUnit()
-
-            if unit:IsMobile() and unit:IsMoving() then
-
-]]--
+requires = {}
+requiresNames = {}
+conflicts = {}
+before = {}
+after = {}

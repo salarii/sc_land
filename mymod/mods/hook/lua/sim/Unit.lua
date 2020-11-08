@@ -2202,7 +2202,7 @@ Unit = Class(moho.unit_methods) {
             local wep = self:GetWeapon(i)
             wep:OnMotionHorzEventChange(new, old)
         end
-        
+        --[[
         local bp = self:GetBlueprint()
         if table.find(bp.Categories,'MOBILE') and 
            table.find(bp.Categories,'LAND') then
@@ -2228,7 +2228,7 @@ Unit = Class(moho.unit_methods) {
            end
            
         end 
-        
+        ]]--
     end,
 
     OnMotionVertEventChange = function( self, new, old )
