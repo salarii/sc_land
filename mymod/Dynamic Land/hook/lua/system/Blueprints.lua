@@ -14,7 +14,7 @@ do
     local omniRadius = 1.4
     local omniArtyRadius = 1.65
     local shotVel = 1.3 
-		local moveFireRateLimit = 0.55
+		local moveFireRateLimit = 0.5
     local moveObserveLimit = 0.8		
 		local healthRatio = 0.6
 		
