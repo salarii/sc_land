@@ -2202,7 +2202,7 @@ Unit = Class(moho.unit_methods) {
             local wep = self:GetWeapon(i)
             wep:OnMotionHorzEventChange(new, old)
         end
-        --[[
+        
         local bp = self:GetBlueprint()
         if table.find(bp.Categories,'MOBILE') and 
            table.find(bp.Categories,'LAND') then
@@ -2221,14 +2221,17 @@ Unit = Class(moho.unit_methods) {
            end
            
           
-           if ( old == 'Stopped' ) and bp.Intel.moveVisionRadius then
-                  self:SetIntelRadius( 'Vision',bp.Intel.moveVisionRadius )
-           elseif ( new == 'Stopped' ) and bp.Intel.VisionRadius then
-                  self:SetIntelRadius( 'Vision',bp.Intel.VisionRadius )
+           if ( old == 'Stopped' )  then
+                  self:SetIntelRadius('Omni',  0)
+                  self:DisableIntel('Omni')
+           elseif ( new == 'Stopped' )  then
+                  self:SetIntelRadius('Omni', bp.Intel.OmniRadius)
+                  self:EnableIntel('Omni')
+           
            end
            
         end 
-        ]]--
+        
     end,
 
     OnMotionVertEventChange = function( self, new, old )
